@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #FAF7F2;
+  --foreground: #2C2625;
+  --card: #FFFFFF;
+  --card-foreground: #2C2625;
+  --popover: #FFFFFF;
+  --popover-foreground: #2C2625;
+  --primary: #BC6C70;
+  --primary-foreground: #FFFFFF;
+  --secondary: #849E8C;
+  --secondary-foreground: #FFFFFF;
+  --muted: #F3ECE8;
+  --muted-foreground: #7D7270;
+  --accent: #C9A464;
+  --accent-foreground: #2C2625;
+  --destructive: #DF5151;
+  --destructive-foreground: #FFFFFF;
+  --border: #E8DDD7;
+  --input: #E8DDD7;
+  --ring: #BC6C70;
+  --radius: 1rem;
+
+  --blush-light: #FCF4F3;
+  --blush: #F4DFDF;
+  --blush-dark: #A85A5F;
+  --sage-light: #EDF3EF;
+  --sage: #93AB9A;
+  --sage-dark: #587160;
+  --gold-light: #FDF9EE;
+  --gold: #C9A464;
+  --ivory: #FAF7F2;
+  --charcoal: #2C2625;
+}
+
+.dark {
+  --background: #1C1918;
+  --foreground: #F5EFEB;
+  --card: #252120;
+  --card-foreground: #F5EFEB;
+  --popover: #252120;
+  --popover-foreground: #F5EFEB;
+  --primary: #D4888C;
+  --primary-foreground: #1C1918;
+  --secondary: #97B2A0;
+  --secondary-foreground: #1C1918;
+  --muted: #2E2725;
+  --muted-foreground: #B0A4A0;
+  --accent: #DFC088;
+  --accent-foreground: #1C1918;
+  --destructive: #E06767;
+  --destructive-foreground: #FFFFFF;
+  --border: #3A3230;
+  --input: #3A3230;
+  --ring: #D4888C;
+
+  --blush-light: #2A2121;
+  --blush: #443031;
+  --blush-dark: #E4A2A6;
+  --sage-light: #1D2621;
+  --sage: #384A3F;
+  --sage-dark: #A5BFA0;
+  --gold-light: #2D271D;
+  --gold: #DFC088;
+  --ivory: #1C1918;
+  --charcoal: #F5EFEB;
+}
+
+@theme {
+  --font-serif: "Cormorant Garamond", serif;
+  --font-display: "Playfair Display", serif;
+  --font-script: "Great Vibes", cursive;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-blush-light: var(--blush-light);
+  --color-blush: var(--blush);
+  --color-blush-dark: var(--blush-dark);
+  --color-sage-light: var(--sage-light);
+  --color-sage: var(--sage);
+  --color-sage-dark: var(--sage-dark);
+  --color-gold-light: var(--gold-light);
+  --color-gold: var(--gold);
+  --color-ivory: var(--ivory);
+  --color-charcoal: var(--charcoal);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+* {
+  border-color: var(--border);
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+}
+
+/* Floral & Romantic Aesthetics */
+.font-script {
+  font-family: var(--font-script);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.glass-romantic {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(232, 221, 215, 0.6);
+}
+
+.dark .glass-romantic {
+  background: rgba(37, 33, 32, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(58, 50, 48, 0.6);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #AA771C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rose-gradient-text {
+  background: linear-gradient(135deg, #A85A5F 0%, #C47C7B 50%, #E29578 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border {
+  border: 1px solid #D4AF3740;
+}
+
+.section-divider-floral {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.section-divider-floral::before,
+.section-divider-floral::after {
+  content: '';
+  height: 1px;
+  width: 5rem;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+/* Floating animation for subtle petals */
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(3deg);
+  }
+}
+
+.animate-float-gentle {
+  animation: floatGentle 5s ease-in-out infinite;
+}
+
+@keyframes pulseSoft {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulseSoft 3s ease-in-out infinite;
+}
