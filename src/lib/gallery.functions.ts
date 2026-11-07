@@ -1,4 +1,3 @@
-import { createServerFn } from '@tanstack/react-start'
 import { supabase, isSupabaseConfigured } from './supabase'
 
 export interface GalleryPhoto {
@@ -47,49 +46,46 @@ const FALLBACK_PHOTOS: GalleryPhoto[] = [
   },
 ]
 
-export const getGalleryImages = createServerFn({ method: 'GET' }).handler(
-  async (): Promise<GalleryPhoto[]> => {
-    // Skip network call when Supabase credentials are not configured.
-    if (!isSupabaseConfigured) {
+export async function getGalleryImages(): Promise<GalleryPhoto[]> {
+  if (!isSupabaseConfigured) {
+    return FALLBACK_PHOTOS
+  }
+
+  try {
+    const { data, error } = await supabase.storage
+      .from('wedding-gallery')
+      .list('', {
+        limit: 30,
+        sortBy: { column: 'name', order: 'asc' },
+      })
+
+    if (error) {
+      console.warn('Gallery: Supabase storage error, using fallback photos.', error.message)
       return FALLBACK_PHOTOS
     }
 
-    try {
-      const { data, error } = await supabase.storage
-        .from('wedding-gallery')
-        .list('', {
-          limit: 30,
-          sortBy: { column: 'name', order: 'asc' },
+    if (data && data.length > 0) {
+      const photos = data
+        .filter((file) => file.name && !file.name.startsWith('.'))
+        .map((file, index) => {
+          const { data: publicUrlData } = supabase.storage
+            .from('wedding-gallery')
+            .getPublicUrl(file.name)
+
+          return {
+            id: file.id || `photo-${index}`,
+            name: file.name,
+            url: publicUrlData.publicUrl,
+            title: `Cherished Moments ${index + 1}`,
+          }
         })
 
-      if (error) {
-        console.warn('Gallery: Supabase storage error, using fallback photos.', error.message)
-        return FALLBACK_PHOTOS
-      }
-
-      if (data && data.length > 0) {
-        const photos = data
-          .filter((file) => file.name && !file.name.startsWith('.'))
-          .map((file, index) => {
-            const { data: publicUrlData } = supabase.storage
-              .from('wedding-gallery')
-              .getPublicUrl(file.name)
-
-            return {
-              id: file.id || `photo-${index}`,
-              name: file.name,
-              url: publicUrlData.publicUrl,
-              title: `Cherished Moments ${index + 1}`,
-            }
-          })
-
-        return photos.length > 0 ? photos : FALLBACK_PHOTOS
-      }
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      console.warn('Gallery: Failed to reach Supabase, using fallback photos.', message)
+      return photos.length > 0 ? photos : FALLBACK_PHOTOS
     }
-
-    return FALLBACK_PHOTOS
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+    console.warn('Gallery: Failed to reach Supabase, using fallback photos.', message)
   }
-)
+
+  return FALLBACK_PHOTOS
+}
